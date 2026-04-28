@@ -22,13 +22,14 @@ uv run uvicorn weaviate_ui.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 Environment variables
-- `WEAVIATE_URL` (required): the URL of your Weaviate instance, e.g. `http://localhost:8091`
+- `WEAVIATE_HOST` (required): the host name or IP of your Weaviate instance, e.g. `localhost`
+- `WEAVIATE_PORT` (required): the HTTP port of your Weaviate instance, e.g. `8080`
 - `WEAVIATE_API_KEYS` (optional): API key for Weaviate (if your instance requires it)
 
 Example (run backend with env vars):
 
 ```bash
-WEAVIATE_URL=http://localhost:8091 WEAVIATE_API_KEYS=secret uv run uvicorn weaviate_ui.main:app --reload
+WEAVIATE_HOST=localhost WEAVIATE_PORT=8080 WEAVIATE_API_KEYS=secret uv run uvicorn weaviate_ui.main:app --reload
 ```
 
 Run the frontend
@@ -60,5 +61,5 @@ Build and run locally
 
 ```bash
 docker build -t weaviate-ui .
-docker run -e WEAVIATE_URL=http://your-weaviate:8091 -p 8000:8000 weaviate-ui
+docker run -e WEAVIATE_HOST=your-weaviate -e WEAVIATE_PORT=8080 -p 7777:7777 weaviate-ui
 ```
