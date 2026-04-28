@@ -1,20 +1,19 @@
-FROM node:18 as builder
+FROM node:18 AS builder
 WORKDIR /app
-COPY ./frontend .
+RUN corepack enable
+COPY frontend/package.json frontend/pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+COPY frontend .
+RUN pnpm build
 
-RUN yarn
-RUN yarn build
-
-FROM python:3.11-slim-buster
+FROM python:3.11-slim-bookworm
 WORKDIR /app
 
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 COPY --from=builder /app/dist /app/static
+COPY pyproject.toml uv.lock ./
+RUN uv sync --no-install-project
 
 COPY . .
-
-RUN pip install poetry
-COPY poetry.lock pyproject.toml ./
-RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
-COPY . .
-CMD ["uvicorn", "weaviate_ui.main:app", "--host", "0.0.0.0", "--port", "7777"]
-
+CMD ["uv", "run", "uvicorn", "weaviate_ui.main:app", "--host", "0.0.0.0", "--port", "7777"]

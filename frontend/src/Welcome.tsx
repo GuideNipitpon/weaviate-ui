@@ -2,26 +2,25 @@ import React, {useEffect, useState} from "react";
 import {getSchema} from "./api";
 import {ProColumns, ProTable} from "@ant-design/pro-components";
 import ReactJson from 'react-json-view'
+import {normalizeSchema, NormalizedCollection} from "./schemaAdapter.ts";
 
 export default function () {
-    const [schemas, setSchemas] = useState([])
+    const [schemas, setSchemas] = useState<NormalizedCollection[]>([])
     useEffect(() => {
-            getSchema().then((schemas) => {
-
-
-                    setSchemas(schemas.classes)
+            getSchema().then((schemaResponse) => {
+                    setSchemas(normalizeSchema(schemaResponse))
                 }
             )
         }
         , [])
     // transform from foreach to map of below
     const tableListDataSource = schemas.map((schema: any) => ({
-        className: schema.class,
+        className: schema.name,
         description: schema.description,
         vectorIndexType: schema.vectorIndexType,
         vectorizer: schema.vectorizer,
-        key: schema.class,
-        detail: schema
+        key: schema.name,
+        detail: schema.raw
     }));
     const columns: ProColumns<any>[] = [
         {

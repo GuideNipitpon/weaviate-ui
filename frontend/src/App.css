@@ -1,0 +1,154 @@
+:root {
+    --bg-base: #f4f7fb;
+    --panel-bg: #ffffff;
+    --panel-border: #dce4ef;
+    --text-strong: #1f2a44;
+}
+
+body {
+    margin: 0;
+    background: radial-gradient(circle at top right, #dde8ff 0%, #f5f8fe 45%, #f3f6fb 100%);
+}
+
+#root {
+    min-height: 100vh;
+}
+
+.app-root {
+    min-height: 100vh;
+    background: transparent;
+}
+
+.page-container .ant-pro-page-container-warp-page-header {
+    background: transparent;
+}
+
+.class-data-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.filter-card,
+.structure-card,
+.table-card {
+    border-radius: 8px;
+    border: 1px solid var(--panel-border);
+    background: var(--panel-bg);
+}
+
+.filter-toolbar {
+    width: 100%;
+}
+
+.class-content-grid {
+    display: grid;
+    grid-template-columns: minmax(280px, 34%) minmax(0, 1fr);
+    gap: 12px;
+}
+
+.class-content-grid-closed {
+    grid-template-columns: 1fr;
+}
+
+.structure-card {
+    max-height: calc(100vh - 270px);
+    overflow: auto;
+}
+
+.table-card .ant-pro-table {
+    background: var(--panel-bg);
+}
+
+.mongo-card .ant-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.document-list {
+    display: grid;
+    gap: 10px;
+}
+
+.document-card {
+    border: 1px solid #d6deeb;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.document-card:hover {
+    border-color: #7ea4ff;
+}
+
+.document-card-selected {
+    border-color: #4b76df;
+    box-shadow: 0 0 0 1px #4b76df inset;
+}
+
+.document-id-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.document-id-value {
+    color: #1f4fa6;
+    word-break: break-all;
+}
+
+.doc-field-row {
+    display: grid;
+    grid-template-columns: 130px minmax(0, 1fr);
+    align-items: start;
+    gap: 8px;
+    padding: 3px 0;
+    border-top: 1px dashed #edf2fb;
+}
+
+.doc-field-name {
+    color: #3b4a66;
+}
+
+.doc-field-value {
+    display: -webkit-box;
+    color: #1f2a44;
+    white-space: normal;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    word-break: break-word;
+    text-overflow: ellipsis;
+}
+
+.doc-field-value-expanded {
+    display: block;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    overflow: visible;
+}
+
+.field-toggle-btn {
+    padding: 0;
+    margin-top: 2px;
+    height: auto;
+    line-height: 1.1;
+}
+
+.documents-pagination {
+    display: flex;
+    justify-content: flex-end;
+}
+
+@media (max-width: 1100px) {
+    .class-content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .structure-card {
+        max-height: none;
+    }
+}
+
